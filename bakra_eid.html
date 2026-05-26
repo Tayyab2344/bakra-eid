@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eid ul Adha Mubarak</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8B6914;
+    --emerald: #0d2218;
+    --emerald-mid: #1A3A2A;
+    --cream: #FDF6E3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    min-height: 100vh;
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    background: var(--emerald);
+  }
+
+  /* ── Animated sky background ── */
+  .sky {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 30%, #1a3d28 0%, #0a1a10 50%, #030d07 100%);
+    z-index: 0;
+  }
+  .sky::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 30% at 70% 10%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 10% 80%, rgba(26,90,50,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* ── Stars ── */
+  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite alternate;
+  }
+  @keyframes twinkle {
+    from { opacity: 0.08; transform: scale(0.7); }
+    to   { opacity: 1;    transform: scale(1.3); }
+  }
+
+  /* ── Lanterns ── */
+  .lanterns {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-around; padding: 0 16px;
+    pointer-events: none; z-index: 2;
+  }
+  .lantern-wrap {
+    display: flex; flex-direction: column; align-items: center;
+    animation: swing var(--sw) ease-in-out infinite alternate;
+    transform-origin: top center;
+  }
+  @keyframes swing { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
+  .lantern-string { width: 1.5px; height: 55px; background: linear-gradient(to bottom, rgba(139,105,20,0.4), var(--gold)); }
+  .lantern-cap { width: 42px; height: 9px; background: var(--gold-dark); border-radius: 3px 3px 0 0; margin-bottom: -1px; }
+  .lantern-body {
+    width: 34px; height: 50px; border-radius: 4px 4px 8px 8px; position: relative;
+    animation: lanternglow var(--sw) ease-in-out infinite alternate;
+  }
+  @keyframes lanternglow {
+    from { box-shadow: 0 0 12px 4px rgba(201,168,76,0.3), inset 0 0 8px rgba(255,240,180,0.2); }
+    to   { box-shadow: 0 0 30px 12px rgba(201,168,76,0.6), inset 0 0 16px rgba(255,240,180,0.4); }
+  }
+  .lantern-body::before { content:''; position:absolute; top:7px; left:5px; right:5px; height:3px; background:rgba(0,0,0,0.25); border-radius:2px; }
+  .lantern-body::after  { content:''; position:absolute; bottom:7px; left:5px; right:5px; height:3px; background:rgba(0,0,0,0.25); border-radius:2px; }
+  .lantern-base  { width:26px; height:7px; background:var(--gold-dark); border-radius:0 0 3px 3px; margin-top:-1px; }
+  .lantern-tassel { width:1.5px; height:18px; background:var(--gold); margin-top:1px; }
+
+  /* ── Particles ── */
+  .particles { position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden; }
+  .particle {
+    position:absolute; bottom:-20px; border-radius:50%; opacity:0;
+    animation: rise var(--rd) ease-in infinite; animation-delay:var(--dl); left:var(--lf);
+    background: var(--gold);
+  }
+  @keyframes rise {
+    0%  { opacity:0;   transform:translateY(0) scale(0.4) rotate(0deg); }
+    15% { opacity:0.8; }
+    100%{ opacity:0;   transform:translateY(-105vh) scale(1.6) rotate(360deg); }
+  }
+
+  /* ── Shooting stars ── */
+  .shoot {
+    position:fixed; top:0; left:0; pointer-events:none; z-index:1; width:100%; height:100%;
+  }
+  .shoot-star {
+    position:absolute; height:2px; border-radius:999px;
+    background: linear-gradient(to right, transparent, rgba(232,201,122,0.9), transparent);
+    animation: shoot var(--sd) linear infinite;
+    animation-delay: var(--sdl);
+    opacity: 0;
+    top: var(--st); left: var(--sl);
+    width: var(--sw2);
+    transform: rotate(-30deg);
+  }
+  @keyframes shoot {
+    0%   { opacity:0; transform: rotate(-30deg) translateX(0); }
+    5%   { opacity:1; }
+    40%  { opacity:0; transform: rotate(-30deg) translateX(120vw); }
+    100% { opacity:0; transform: rotate(-30deg) translateX(120vw); }
+  }
+
+  /* ── Layout ── */
+  .page {
+    position: relative; z-index: 3;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 120px 16px 60px;
+    min-height: 100vh;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: linear-gradient(160deg, #1b3f2d 0%, #0d2018 55%, #162e1e 100%);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 6px;
+    padding: 52px 48px 44px;
+    max-width: 580px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 80px rgba(0,0,0,0.7), 0 0 40px rgba(201,168,76,0.06), inset 0 0 60px rgba(0,0,0,0.3);
+    animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
+    opacity: 0;
+    position: relative;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(50px) scale(0.97); }
+    to   { opacity:1; transform:translateY(0)   scale(1); }
+  }
+
+  /* Border glow pulse */
+  .card::before {
+    content:'';
+    position:absolute; inset:-1px;
+    border-radius:6px;
+    background: transparent;
+    box-shadow: 0 0 0 1px rgba(201,168,76,0.15);
+    animation: borderPulse 4s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  @keyframes borderPulse {
+    from { box-shadow: 0 0 0 1px rgba(201,168,76,0.1), 0 0 20px rgba(201,168,76,0.05); }
+    to   { box-shadow: 0 0 0 1px rgba(201,168,76,0.5), 0 0 40px rgba(201,168,76,0.15); }
+  }
+
+  .corner { position:absolute; color:var(--gold); font-size:22px; opacity:0.5; }
+  .corner.tl { top:10px; left:12px; }
+  .corner.tr { top:10px; right:12px; }
+  .corner.bl { bottom:10px; left:12px; }
+  .corner.br { bottom:10px; right:12px; }
+
+  /* ── Dividers ── */
+  .divider { display:flex; align-items:center; gap:10px; margin:16px auto; width:75%; }
+  .divider-line { flex:1; height:1px; background:linear-gradient(to right, transparent, rgba(201,168,76,0.6), transparent); }
+  .divider-diamond { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); flex-shrink:0; }
+
+  /* ── Moon ── */
+  .moon-wrap { margin: 0 auto 14px; animation: floatMoon 5s ease-in-out infinite alternate; display:inline-block; }
+  @keyframes floatMoon { from { transform:translateY(0); } to { transform:translateY(-10px); } }
+
+  /* ── Arabic ── */
+  .arabic {
+    font-family: 'Amiri', serif; font-size: 2.6rem; color: var(--gold-light);
+    line-height: 1.3; animation: shimmer 3s ease-in-out infinite alternate;
+    text-shadow: 0 0 30px rgba(201,168,76,0.3);
+  }
+  @keyframes shimmer {
+    from { text-shadow: 0 0 10px rgba(201,168,76,0.2); }
+    to   { text-shadow: 0 0 35px rgba(201,168,76,0.8); }
+  }
+
+  .title {
+    font-family:'Cinzel', serif; font-size:1.7rem; font-weight:400;
+    color:var(--gold-light); letter-spacing:0.18em; margin-top:4px;
+  }
+  .subtitle { font-size:1rem; color:rgba(253,246,227,0.5); letter-spacing:0.14em; text-transform:uppercase; }
+
+  .message {
+    font-size:1.1rem; line-height:1.9; color:rgba(253,246,227,0.8);
+    font-weight:300; font-style:italic; margin:6px 0;
+  }
+
+  /* ── Goat section ── */
+  .goat-section {
+    margin: 4px auto 8px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  .goat-glow-ring {
+    position: absolute;
+    bottom: -8px;
+    width: 200px; height: 30px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.35) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: glowPulse 3s ease-in-out infinite alternate;
+  }
+  @keyframes glowPulse {
+    from { opacity:0.5; transform:scaleX(0.85); }
+    to   { opacity:1;   transform:scaleX(1.1); }
+  }
+  .goat-img {
+    position: relative;
+    z-index: 2;
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6)) drop-shadow(0 0 20px rgba(201,168,76,0.25));
+    animation: floatGoat 4s ease-in-out infinite alternate;
+    border-radius: 8px;
+  }
+  @keyframes floatGoat {
+    from { transform:translateY(0) rotate(-0.5deg); }
+    to   { transform:translateY(-10px) rotate(0.5deg); }
+  }
+
+  /* Garland above goat */
+  .garland {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 6px; align-items: center;
+    z-index: 3;
+  }
+  .garland-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    animation: glowDot 2s ease-in-out infinite alternate;
+  }
+  @keyframes glowDot {
+    from { filter: brightness(0.8); }
+    to   { filter: brightness(1.5) drop-shadow(0 0 4px currentColor); }
+  }
+
+  /* ── From line ── */
+  .from-wrap { margin-top: 16px; }
+  .from-name {
+    font-family:'Cinzel', serif; font-size:1.05rem; color:var(--gold-light);
+    letter-spacing:0.12em; font-weight:600;
+    text-shadow: 0 0 18px rgba(201,168,76,0.5);
+    animation: shimmer 4s ease-in-out infinite alternate;
+  }
+  .from-label { font-size:0.78rem; letter-spacing:0.2em; color:rgba(201,168,76,0.5); margin-top:4px; text-transform:uppercase; }
+  .taqqabal { font-family:'Amiri',serif; font-size:1.1rem; color:rgba(253,246,227,0.55); margin:4px 0 0; }
+  .taqqabal-en { font-size:0.82rem; letter-spacing:0.08em; color:rgba(253,246,227,0.35); }
+
+  /* ── Fireworks canvas ── */
+  #fireworks { position:fixed; inset:0; z-index:1; pointer-events:none; }
+</style>
+</head>
+<body>
+
+<div class="sky"></div>
+<div class="stars" id="stars"></div>
+<div class="particles" id="particles"></div>
+<div class="shoot" id="shoot"></div>
+<canvas id="fireworks"></canvas>
+
+<div class="lanterns" id="lanterns"></div>
+
+<div class="page">
+  <div class="card">
+    <div class="corner tl">✦</div>
+    <div class="corner tr">✦</div>
+    <div class="corner bl">✦</div>
+    <div class="corner br">✦</div>
+
+    <!-- Moon -->
+    <div class="moon-wrap">
+      <svg width="68" height="68" viewBox="0 0 68 68" fill="none">
+        <path d="M42 11C34 11 24 19 24 34C24 49 34 57 42 57C30 57 12 47 12 34C12 21 30 11 42 11Z" fill="#C9A84C" opacity="0.92"/>
+        <polygon points="52,7 54,13 60,13 55,17 57,23 52,19 47,23 49,17 44,13 50,13" fill="#E8C97A"/>
+        <circle cx="58" cy="30" r="2.2" fill="#E8C97A" opacity="0.6"/>
+        <circle cx="54" cy="40" r="1.4" fill="#E8C97A" opacity="0.4"/>
+      </svg>
+    </div>
+
+    <div class="arabic">عید الاضحی مبارک</div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <div class="title">Eid ul Adha Mubarak</div>
+    <div class="subtitle">Bakra Eid 2026</div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <!-- Real Goat Image -->
+    <div class="goat-section">
+      <div class="garland">
+        <div class="garland-dot" style="background:#e05050;animation-delay:0s"></div>
+        <div class="garland-dot" style="background:#e8c97a;animation-delay:0.2s"></div>
+        <div class="garland-dot" style="background:#4caf70;animation-delay:0.4s"></div>
+        <div class="garland-dot" style="background:#e05050;animation-delay:0.6s"></div>
+        <div class="garland-dot" style="background:#e8c97a;animation-delay:0.8s"></div>
+        <div class="garland-dot" style="background:#4caf70;animation-delay:1.0s"></div>
+        <div class="garland-dot" style="background:#e05050;animation-delay:1.2s"></div>
+      </div>
+      <div class="goat-glow-ring"></div>
+      <img
+        class="goat-img"
+        src="https://freepngimg.com/thumb/goat/8-2-goat-png-thumb.png"
+        alt="Bakra - Goat"
+        onerror="this.src='https://freepngimg.com/thumb/goat/1-2-goat-free-png-image-thumb.png'"
+      />
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <p class="message">
+      May this blessed day of sacrifice fill your heart with joy, your home with warmth, and your life with the peace that comes from true devotion. May Allah accept your qurbani and grant you His endless blessings.
+    </p>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <div class="taqqabal">تقبل الله منا ومنكم</div>
+    <div class="taqqabal-en">Taqabbal Allahu Minna wa Minkum</div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <div class="from-wrap">
+      <div class="from-label">With warm wishes from</div>
+      <div class="from-name">Rana Muhammad Tayyab Atiq</div>
+      <div class="from-label" style="margin-top:8px; color:rgba(201,168,76,0.4);">✦ &nbsp; Eid Mubarak to you &amp; your loved ones &nbsp; ✦</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Stars ── */
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const sz = Math.random() * 2.8 + 0.4;
+  const colors = ['#fff','#E8C97A','#a0d8c0','#fff','#fff'];
+  s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${(Math.random()*3+1.5).toFixed(1)}s;animation-delay:${(Math.random()*5).toFixed(1)}s;background:${colors[Math.floor(Math.random()*colors.length)]}`;
+  starsEl.appendChild(s);
+}
+
+/* ── Particles ── */
+const partEl = document.getElementById('particles');
+for (let i = 0; i < 40; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const sz = Math.random() * 5 + 2;
+  const golds = ['#C9A84C','#E8C97A','#fff','#C9A84C'];
+  p.style.cssText = `--rd:${(Math.random()*8+6).toFixed(1)}s;--dl:${(Math.random()*10).toFixed(1)}s;--lf:${Math.random()*100}%;width:${sz}px;height:${sz}px;background:${golds[Math.floor(Math.random()*golds.length)]}`;
+  partEl.appendChild(p);
+}
+
+/* ── Shooting stars ── */
+const shootEl = document.getElementById('shoot');
+for (let i = 0; i < 6; i++) {
+  const s = document.createElement('div');
+  s.className = 'shoot-star';
+  s.style.cssText = `--sd:${(Math.random()*8+6).toFixed(1)}s;--sdl:${(Math.random()*12).toFixed(1)}s;--st:${Math.random()*50}%;--sl:${Math.random()*30}%;--sw2:${Math.floor(Math.random()*80+60)}px`;
+  shootEl.appendChild(s);
+}
+
+/* ── Lanterns ── */
+const lanEl = document.getElementById('lanterns');
+const count = window.innerWidth < 480 ? 4 : 7;
+const lanColors = [
+  ['#C9A84C','#6b4a0a'],['#c94c4c','#6b1414'],['#4c8fc9','#14446b'],
+  ['#4cc97a','#146b3a'],['#C9A84C','#6b4a0a'],['#c97a4c','#6b3a14'],['#9a4cc9','#4a146b']
+];
+for (let i = 0; i < count; i++) {
+  const [c1,c2] = lanColors[i % lanColors.length];
+  const sw = (Math.random()*2.5+2).toFixed(1);
+  const wrap = document.createElement('div');
+  wrap.className = 'lantern-wrap';
+  wrap.style.cssText = `--sw:${sw}s;animation-delay:${(i*0.35).toFixed(1)}s`;
+  wrap.innerHTML = `
+    <div class="lantern-string"></div>
+    <div class="lantern-cap"></div>
+    <div class="lantern-body" style="background:linear-gradient(135deg,${c1},${c2})"></div>
+    <div class="lantern-base"></div>
+    <div class="lantern-tassel"></div>`;
+  lanEl.appendChild(wrap);
+}
+
+/* ── Fireworks ── */
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+const fireworks = [];
+const COLORS = ['#C9A84C','#E8C97A','#fff','#4caf70','#e05050','#a0d8ff'];
+
+class Particle {
+  constructor(x, y, color) {
+    this.x = x; this.y = y; this.color = color;
+    const angle = Math.random() * Math.PI * 2;
+    const speed = Math.random() * 4 + 1;
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed;
+    this.life = 1; this.decay = Math.random() * 0.018 + 0.008;
+    this.size = Math.random() * 3 + 1;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    this.vy += 0.05; // gravity
+    this.vx *= 0.98; this.vy *= 0.98;
+    this.life -= this.decay;
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, this.life);
+    ctx.fillStyle = this.color;
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = 6;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+let particles = [];
+function burst(x, y) {
+  const color = COLORS[Math.floor(Math.random()*COLORS.length)];
+  const color2 = COLORS[Math.floor(Math.random()*COLORS.length)];
+  for (let i = 0; i < 70; i++) {
+    particles.push(new Particle(x, y, i % 2 === 0 ? color : color2));
+  }
+}
+
+// Launch fireworks periodically
+function launchFirework() {
+  const x = Math.random() * W * 0.8 + W * 0.1;
+  const y = Math.random() * H * 0.45 + H * 0.05;
+  burst(x, y);
+}
+
+let lastFW = 0;
+function animate(ts) {
+  requestAnimationFrame(animate);
+  ctx.clearRect(0, 0, W, H);
+  if (ts - lastFW > 1800) { launchFirework(); lastFW = ts; }
+  particles = particles.filter(p => p.life > 0);
+  particles.forEach(p => { p.update(); p.draw(); });
+}
+requestAnimationFrame(animate);
+
+// Initial burst on load
+setTimeout(() => { launchFirework(); setTimeout(launchFirework, 400); setTimeout(launchFirework, 800); }, 1200);
+</script>
+</body>
+</html>
