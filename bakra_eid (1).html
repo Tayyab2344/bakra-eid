@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eid ul Adha Mubarak</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#C9A84C;--gold-l:#F0D980;--gold-d:#8B6914;
+  --green:#071a0f;--green2:#0e2a18;--green3:#1a3d26;
+  --cream:#FDF6E3;
+}
+html,body{min-height:100vh;overflow-x:hidden;background:var(--green);font-family:'Cormorant Garamond',serif;}
+
+/* ══ BG ══ */
+.bg{
+  position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%,  #0f3520 0%,transparent 65%),
+    radial-gradient(ellipse 100% 80% at 0% 100%, #061208 0%,transparent 60%),
+    radial-gradient(ellipse 60% 60% at 100% 50%, #0a200f 0%,transparent 60%),
+    #050f08;
+}
+.bg-overlay{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 50% 25% at 50% 0%,rgba(201,168,76,.07) 0%,transparent 70%),
+    radial-gradient(ellipse 30% 30% at 80% 20%,rgba(201,168,76,.04) 0%,transparent 60%);
+}
+
+/* ══ STARS ══ */
+.stars{position:fixed;inset:0;z-index:1;pointer-events:none}
+.star{position:absolute;border-radius:50%;animation:twink var(--d) ease-in-out infinite alternate}
+@keyframes twink{from{opacity:.05;transform:scale(.6)}to{opacity:1;transform:scale(1.4)}}
+
+/* ══ SHOOTING STARS ══ */
+.shoots{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.sstar{
+  position:absolute;height:1.5px;border-radius:999px;opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(240,217,128,.95),rgba(255,255,255,.5),transparent);
+  animation:shoot var(--sd) linear infinite var(--sdl);
+  top:var(--st);left:-200px;width:var(--sw);transform:rotate(-18deg);
+}
+@keyframes shoot{0%{opacity:0;transform:rotate(-18deg) translateX(0)}8%{opacity:1}50%{opacity:0;transform:rotate(-18deg) translateX(130vw)}100%{opacity:0;transform:rotate(-18deg) translateX(130vw)}}
+
+/* ══ LANTERNS ══ */
+.lanterns{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-around;padding:0 10px;z-index:2;pointer-events:none}
+.lw{display:flex;flex-direction:column;align-items:center;animation:swing var(--sw) ease-in-out infinite alternate;transform-origin:top center}
+@keyframes swing{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+.ls{width:1px;height:60px;background:linear-gradient(to bottom,transparent,var(--gold-d))}
+.lc{width:40px;height:8px;background:var(--gold-d);border-radius:3px 3px 0 0;margin-bottom:-1px}
+.lb{
+  width:32px;height:48px;border-radius:4px 4px 10px 10px;position:relative;
+  animation:lglow var(--sw) ease-in-out infinite alternate;
+}
+@keyframes lglow{
+  from{box-shadow:0 0 10px 3px color-mix(in srgb,var(--lc1) 40%,transparent),inset 0 0 8px rgba(255,240,160,.15)}
+  to  {box-shadow:0 0 28px 12px color-mix(in srgb,var(--lc1) 70%,transparent),inset 0 0 18px rgba(255,240,160,.35)}
+}
+.lb::before,.lb::after{content:'';position:absolute;left:6px;right:6px;height:2px;background:rgba(0,0,0,.3);border-radius:1px}
+.lb::before{top:8px}.lb::after{bottom:8px}
+.lbase{width:24px;height:6px;background:var(--gold-d);border-radius:0 0 3px 3px;margin-top:-1px}
+.ltassel{width:1px;height:16px;background:var(--gold);margin-top:2px}
+
+/* ══ PARTICLES ══ */
+.ptcls{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.ptcl{position:absolute;bottom:-30px;border-radius:50%;opacity:0;left:var(--lf);width:var(--sz);height:var(--sz);background:var(--pc);animation:rise var(--rd) ease-in infinite var(--dl)}
+@keyframes rise{0%{opacity:0;transform:translateY(0) scale(.4) rotate(0)}12%{opacity:.85}100%{opacity:0;transform:translateY(-110vh) scale(1.8) rotate(720deg)}}
+
+/* ══ CANVAS ══ */
+#fw{position:fixed;inset:0;z-index:1;pointer-events:none}
+
+/* ══ PAGE ══ */
+.page{position:relative;z-index:4;display:flex;flex-direction:column;align-items:center;padding:110px 14px 70px;min-height:100vh}
+
+/* ══ CARD ══ */
+.card{
+  position:relative;width:100%;max-width:600px;
+  background:linear-gradient(155deg,#163324 0%,#0a1e10 40%,#0d2415 80%,#142a1a 100%);
+  border-radius:8px;overflow:hidden;
+  padding:56px 44px 50px;text-align:center;
+  box-shadow:0 0 100px rgba(0,0,0,.8),0 0 50px rgba(0,0,0,.5),inset 0 0 80px rgba(0,0,0,.4);
+  animation:riseCard 1.6s cubic-bezier(.16,1,.3,1) forwards;opacity:0;
+}
+@keyframes riseCard{from{opacity:0;transform:translateY(60px) scale(.96)}to{opacity:1;transform:none}}
+
+/* Gold border shimmer */
+.card::before{
+  content:'';position:absolute;inset:0;border-radius:8px;pointer-events:none;
+  border:1px solid transparent;
+  background:linear-gradient(#0a1e10,#0a1e10) padding-box,
+             linear-gradient(135deg,var(--gold-d),var(--gold-l),var(--gold-d),var(--gold-l),var(--gold-d)) border-box;
+  animation:borderShim 6s linear infinite;
+}
+@keyframes borderShim{from{filter:brightness(.7)}to{filter:brightness(1.4)}}
+
+/* Geometric corner ornaments */
+.card::after{
+  content:'';position:absolute;inset:12px;border-radius:4px;pointer-events:none;
+  border:1px solid rgba(201,168,76,.12);
+}
+
+.corn{position:absolute;color:var(--gold);opacity:.55;font-size:18px;line-height:1}
+.corn.tl{top:14px;left:16px}.corn.tr{top:14px;right:16px}
+.corn.bl{bottom:14px;left:16px}.corn.br{bottom:14px;right:16px}
+
+/* ══ ISLAMIC PATTERN TOP BAND ══ */
+.pattern-band{
+  position:absolute;top:0;left:0;right:0;height:8px;
+  background:repeating-linear-gradient(90deg,var(--gold-d) 0px,var(--gold) 4px,var(--gold-l) 8px,var(--gold) 12px,var(--gold-d) 16px);
+  opacity:.5;
+}
+.pattern-band-bot{
+  position:absolute;bottom:0;left:0;right:0;height:8px;
+  background:repeating-linear-gradient(90deg,var(--gold-d) 0px,var(--gold) 4px,var(--gold-l) 8px,var(--gold) 12px,var(--gold-d) 16px);
+  opacity:.5;
+}
+
+/* ══ DIVIDER ══ */
+.div{display:flex;align-items:center;gap:10px;margin:14px auto;width:82%}
+.dl{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.55),transparent)}
+.dd{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);flex-shrink:0;box-shadow:0 0 6px rgba(201,168,76,.6)}
+.dd2{width:3px;height:3px;background:var(--gold-l);transform:rotate(45deg);flex-shrink:0}
+
+/* ══ MOON ══ */
+.moon-box{margin:0 auto 10px;display:inline-block;animation:moonFloat 5s ease-in-out infinite alternate;filter:drop-shadow(0 0 18px rgba(201,168,76,.6))}
+@keyframes moonFloat{from{transform:translateY(0) rotate(-2deg)}to{transform:translateY(-12px) rotate(2deg)}}
+
+/* ══ ARABIC ══ */
+.arabic{
+  font-family:'Amiri',serif;font-size:clamp(2rem,6vw,3rem);
+  color:var(--gold-l);line-height:1.4;
+  animation:gShim 3.5s ease-in-out infinite alternate;
+  filter:drop-shadow(0 0 1px rgba(201,168,76,.3));
+}
+@keyframes gShim{
+  from{text-shadow:0 0 8px rgba(201,168,76,.2),0 2px 4px rgba(0,0,0,.5)}
+  to  {text-shadow:0 0 30px rgba(240,217,128,.9),0 0 60px rgba(201,168,76,.4),0 2px 4px rgba(0,0,0,.5)}
+}
+
+.title-en{
+  font-family:'Cinzel',serif;font-size:clamp(1.3rem,4vw,1.9rem);font-weight:600;
+  color:var(--gold-l);letter-spacing:.2em;margin-top:2px;
+  text-shadow:0 0 20px rgba(201,168,76,.4);
+}
+.subtitle{font-size:.92rem;color:rgba(253,246,227,.45);letter-spacing:.18em;text-transform:uppercase;margin-top:2px}
+
+/* ══ GOAT ══ */
+.goat-wrap{position:relative;display:flex;justify-content:center;align-items:flex-end;margin:6px 0 4px}
+.goat-halo{
+  position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);
+  width:220px;height:28px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(201,168,76,.5) 0%,rgba(201,168,76,.15) 50%,transparent 75%);
+  animation:halo 3s ease-in-out infinite alternate;
+}
+@keyframes halo{from{transform:translateX(-50%) scaleX(.8);opacity:.5}to{transform:translateX(-50%) scaleX(1.15);opacity:1}}
+.goat-img{
+  position:relative;z-index:2;width:clamp(160px,40vw,220px);height:auto;
+  filter:drop-shadow(0 6px 20px rgba(0,0,0,.7)) drop-shadow(0 0 30px rgba(201,168,76,.3));
+  animation:goatFloat 4.5s ease-in-out infinite alternate;
+}
+@keyframes goatFloat{from{transform:translateY(0) rotate(-.6deg)}to{transform:translateY(-12px) rotate(.6deg)}}
+
+/* garland string */
+.garland-row{display:flex;justify-content:center;align-items:center;gap:0;margin-bottom:2px;position:relative}
+.garland-row::before{
+  content:'';position:absolute;top:50%;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,.4),transparent);transform:translateY(-50%);
+}
+.gbead{width:10px;height:10px;border-radius:50%;margin:0 3px;animation:gblink 2s ease-in-out infinite alternate}
+@keyframes gblink{from{filter:brightness(.7) drop-shadow(0 0 0 transparent)}to{filter:brightness(1.5) drop-shadow(0 0 4px currentColor)}}
+
+/* ══ MESSAGE ══ */
+.msg{font-size:clamp(.95rem,2.5vw,1.1rem);line-height:1.95;color:rgba(253,246,227,.78);font-style:italic;font-weight:300;margin:4px 0}
+
+/* ══ TAQQABAL ══ */
+.tqqbl{font-family:'Amiri',serif;font-size:1.15rem;color:rgba(253,246,227,.6);margin:2px 0}
+.tqqbl-en{font-size:.8rem;letter-spacing:.1em;color:rgba(253,246,227,.35);margin-bottom:2px}
+
+/* ══ FROM ══ */
+.from-box{margin-top:6px}
+.from-label{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.5)}
+.from-name{
+  font-family:'Cinzel',serif;font-size:clamp(1rem,3vw,1.15rem);font-weight:700;
+  color:var(--gold-l);letter-spacing:.1em;margin-top:3px;
+  animation:gShim 4s ease-in-out infinite alternate;
+}
+.from-wish{font-size:.78rem;letter-spacing:.18em;color:rgba(201,168,76,.4);margin-top:5px;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="bg-overlay"></div>
+<div class="stars" id="stars"></div>
+<div class="shoots" id="shoots"></div>
+<div class="ptcls" id="ptcls"></div>
+<canvas id="fw"></canvas>
+<div class="lanterns" id="lans"></div>
+
+<div class="page">
+<div class="card">
+  <div class="pattern-band"></div>
+  <div class="pattern-band-bot"></div>
+  <div class="corn tl">❖</div><div class="corn tr">❖</div>
+  <div class="corn bl">❖</div><div class="corn br">❖</div>
+
+  <!-- Moon & Star SVG -->
+  <div class="moon-box">
+    <svg width="90" height="88" viewBox="0 0 90 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Moon glow -->
+      <ellipse cx="38" cy="44" rx="30" ry="30" fill="rgba(201,168,76,0.07)"/>
+      <!-- Crescent -->
+      <path d="M52 14C41 14 28 23 28 44C28 65 41 74 52 74C37 74 16 62 16 44C16 26 37 14 52 14Z" fill="url(#mg)"/>
+      <defs>
+        <linearGradient id="mg" x1="16" y1="14" x2="52" y2="74" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0D980"/>
+          <stop offset="100%" stop-color="#C9A84C"/>
+        </linearGradient>
+      </defs>
+      <!-- Shimmer on crescent -->
+      <path d="M52 14C41 14 28 23 28 44C28 65 41 74 52 74C37 74 16 62 16 44C16 26 37 14 52 14Z" fill="url(#mg2)" opacity="0.4"/>
+      <defs>
+        <linearGradient id="mg2" x1="28" y1="30" x2="45" y2="50" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="white" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </linearGradient>
+      </defs>
+      <!-- Star (5-pointed) -->
+      <polygon points="68,6 71,15 81,15 73,21 76,30 68,24 60,30 63,21 55,15 65,15" fill="url(#sg)"/>
+      <defs>
+        <linearGradient id="sg" x1="55" y1="6" x2="81" y2="30" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#FFF5B0"/>
+          <stop offset="100%" stop-color="#C9A84C"/>
+        </linearGradient>
+      </defs>
+      <!-- tiny stars -->
+      <circle cx="73" cy="42" r="2.5" fill="#E8C97A" opacity="0.7"/>
+      <circle cx="66" cy="55" r="1.6" fill="#E8C97A" opacity="0.45"/>
+      <circle cx="78" cy="58" r="1.2" fill="#F0D980" opacity="0.35"/>
+    </svg>
+  </div>
+
+  <!-- Arabic -->
+  <div class="arabic">عِيدُ الْأَضْحَى مُبَارَك</div>
+
+  <div class="div"><div class="dl"></div><div class="dd2"></div><div class="dd"></div><div class="dd2"></div><div class="dl"></div></div>
+
+  <div class="title-en">Eid ul Adha Mubarak</div>
+  <div class="subtitle">Bakra Eid &nbsp;·&nbsp; 2026</div>
+
+  <div class="div"><div class="dl"></div><div class="dd2"></div><div class="dd"></div><div class="dd2"></div><div class="dl"></div></div>
+
+  <!-- Garland + Goat -->
+  <div class="garland-row">
+    <div class="gbead" style="color:#e05050;background:#e05050;animation-delay:0s"></div>
+    <div class="gbead" style="color:#f0d980;background:#f0d980;animation-delay:.15s"></div>
+    <div class="gbead" style="color:#4caf70;background:#4caf70;animation-delay:.3s"></div>
+    <div class="gbead" style="color:#e05050;background:#e05050;animation-delay:.45s"></div>
+    <div class="gbead" style="color:#f0d980;background:#f0d980;animation-delay:.6s"></div>
+    <div class="gbead" style="color:#4caf70;background:#4caf70;animation-delay:.75s"></div>
+    <div class="gbead" style="color:#c94c9a;background:#c94c9a;animation-delay:.9s"></div>
+    <div class="gbead" style="color:#e05050;background:#e05050;animation-delay:1.05s"></div>
+    <div class="gbead" style="color:#f0d980;background:#f0d980;animation-delay:1.2s"></div>
+    <div class="gbead" style="color:#4caf70;background:#4caf70;animation-delay:1.35s"></div>
+    <div class="gbead" style="color:#e05050;background:#e05050;animation-delay:1.5s"></div>
+  </div>
+
+  <div class="goat-wrap">
+    <div class="goat-halo"></div>
+    <img class="goat-img"
+      src="https://freepngimg.com/thumb/goat/8-2-goat-png-thumb.png"
+      alt="Bakra"
+      onerror="this.onerror=null;this.src='https://freepngimg.com/thumb/goat/4-2-goat-transparent-thumb.png'"
+    />
+  </div>
+
+  <div class="div"><div class="dl"></div><div class="dd2"></div><div class="dd"></div><div class="dd2"></div><div class="dl"></div></div>
+
+  <p class="msg">May this blessed day of sacrifice fill your heart<br>with joy, your home with warmth, and your soul<br>with the peace that comes from true devotion.<br>May Allah accept your Qurbani &amp; bless you abundantly.</p>
+
+  <div class="div"><div class="dl"></div><div class="dd2"></div><div class="dd"></div><div class="dd2"></div><div class="dl"></div></div>
+
+  <div class="tqqbl">تَقَبَّلَ اللَّهُ مِنَّا وَمِنكُم</div>
+  <div class="tqqbl-en">Taqabbal Allahu Minna wa Minkum</div>
+
+  <div class="div"><div class="dl"></div><div class="dd2"></div><div class="dd"></div><div class="dd2"></div><div class="dl"></div></div>
+
+  <div class="from-box">
+    <div class="from-label">With warm wishes from</div>
+    <div class="from-name">Rana Muhammad Tayyab Atiq</div>
+    <div class="from-wish">✦ &nbsp; Eid Mubarak to you &amp; your loved ones &nbsp; ✦</div>
+  </div>
+</div>
+</div>
+
+<script>
+/* STARS */
+const se=document.getElementById('stars');
+for(let i=0;i<150;i++){
+  const s=document.createElement('div');s.className='star';
+  const sz=Math.random()*2.8+.3;
+  const cl=['#fff','#F0D980','#b0e8c8','#fff','#fff','#ffe8b0'][Math.floor(Math.random()*6)];
+  s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*4+1.2).toFixed(1)}s;animation-delay:${(Math.random()*6).toFixed(1)}s;background:${cl}`;
+  se.appendChild(s);
+}
+
+/* SHOOTING STARS */
+const soe=document.getElementById('shoots');
+for(let i=0;i<8;i++){
+  const s=document.createElement('div');s.className='sstar';
+  s.style.cssText=`--sd:${(Math.random()*9+7).toFixed(1)}s;--sdl:${(Math.random()*15).toFixed(1)}s;--st:${Math.random()*45}%;--sw:${Math.floor(Math.random()*120+70)}px`;
+  soe.appendChild(s);
+}
+
+/* PARTICLES */
+const pe=document.getElementById('ptcls');
+const pcols=['#C9A84C','#F0D980','#fff','#C9A84C','#E8C97A','#4caf70'];
+for(let i=0;i<55;i++){
+  const p=document.createElement('div');p.className='ptcl';
+  const sz=Math.random()*5+2;
+  p.style.cssText=`--rd:${(Math.random()*9+7).toFixed(1)}s;--dl:${(Math.random()*12).toFixed(1)}s;--lf:${Math.random()*100}%;--sz:${sz}px;--pc:${pcols[Math.floor(Math.random()*pcols.length)]}`;
+  pe.appendChild(p);
+}
+
+/* LANTERNS */
+const le=document.getElementById('lans');
+const cnt=window.innerWidth<500?4:8;
+const lc=[['#C9A84C','#5a3a02'],['#c94c4c','#5a1010'],['#4c8fc9','#10365a'],['#4cc97a','#10502a'],['#c97a4c','#5a3010'],['#9a4cc9','#3a105a'],['#C9A84C','#5a3a02'],['#4c9ac9','#10405a']];
+for(let i=0;i<cnt;i++){
+  const[c1,c2]=lc[i%lc.length];const sw=(Math.random()*3+2).toFixed(1);
+  const w=document.createElement('div');w.className='lw';
+  w.style.cssText=`--sw:${sw}s;animation-delay:${(i*.4).toFixed(1)}s`;
+  w.innerHTML=`<div class="ls"></div><div class="lc"></div><div class="lb" style="background:linear-gradient(135deg,${c1},${c2});--lc1:${c1}"></div><div class="lbase"></div><div class="ltassel"></div>`;
+  le.appendChild(w);
+}
+
+/* FIREWORKS */
+const cv=document.getElementById('fw');const cx=cv.getContext('2d');
+let W,H;
+function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}rsz();
+window.addEventListener('resize',rsz);
+
+const FCOLS=['#C9A84C','#F0D980','#ffffff','#4caf70','#e05050','#a0d8ff','#ffb347','#c9f0d9'];
+class FP{
+  constructor(x,y,cl){
+    this.x=x;this.y=y;this.cl=cl;
+    const a=Math.random()*Math.PI*2,sp=Math.random()*5+1.5;
+    this.vx=Math.cos(a)*sp;this.vy=Math.sin(a)*sp;
+    this.life=1;this.dec=Math.random()*.016+.007;
+    this.r=Math.random()*3.5+.8;this.trail=[];
+  }
+  update(){
+    this.trail.push({x:this.x,y:this.y,l:this.life});
+    if(this.trail.length>6)this.trail.shift();
+    this.x+=this.vx;this.y+=this.vy;
+    this.vy+=.06;this.vx*=.98;this.vy*=.98;
+    this.life-=this.dec;
+  }
+  draw(){
+    // trail
+    for(let i=0;i<this.trail.length;i++){
+      const t=this.trail[i],a=(i/this.trail.length)*t.l*.4;
+      cx.save();cx.globalAlpha=Math.max(0,a);cx.fillStyle=this.cl;cx.shadowColor=this.cl;cx.shadowBlur=3;
+      cx.beginPath();cx.arc(t.x,t.y,this.r*.5,0,Math.PI*2);cx.fill();cx.restore();
+    }
+    cx.save();cx.globalAlpha=Math.max(0,this.life);cx.fillStyle=this.cl;
+    cx.shadowColor=this.cl;cx.shadowBlur=10;
+    cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);cx.fill();cx.restore();
+  }
+}
+
+let fps=[];
+function burst(x,y){
+  const c1=FCOLS[Math.floor(Math.random()*FCOLS.length)];
+  const c2=FCOLS[Math.floor(Math.random()*FCOLS.length)];
+  const n=Math.floor(Math.random()*40+60);
+  for(let i=0;i<n;i++)fps.push(new FP(x,y,i%3===0?c2:c1));
+}
+
+let lastFW=0;
+function anim(ts){
+  requestAnimationFrame(anim);
+  cx.clearRect(0,0,W,H);
+  if(ts-lastFW>2200){burst(Math.random()*W*.8+W*.1,Math.random()*H*.4+H*.05);lastFW=ts;}
+  fps=fps.filter(p=>p.life>0);
+  fps.forEach(p=>{p.update();p.draw();});
+}
+requestAnimationFrame(anim);
+setTimeout(()=>{
+  burst(W*.25,H*.15);
+  setTimeout(()=>burst(W*.75,H*.2),500);
+  setTimeout(()=>burst(W*.5,H*.12),900);
+  setTimeout(()=>burst(W*.15,H*.25),1400);
+  setTimeout(()=>burst(W*.85,H*.18),1800);
+},1000);
+</script>
+</body>
+</html>
